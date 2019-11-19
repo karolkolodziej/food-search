@@ -11,8 +11,17 @@ export const cleenResults = () => {
     elements.searchResPages.innerHTML = '';
 };
 
+export const highlihtSelected = id =>{ 
+    const resultsArr = Array.from(document.querySelectorAll('.results__link'));
+    resultsArr.forEach(el => {
+        el.classList.remove('results__link--active')
+    })
+    document.querySelector(`a[href="#${id}"]`).classList.add('results__link--active');
+};
+
+
 //Reduce length of recipe title 
-const limitRecipeTitle = (title, limit = 17) => {
+export const limitRecipeTitle = (title, limit = 17) => {
     const newTitle = [];
     if (title.length > limit) {
         title.split(' ').reduce((acc, cur) => {
@@ -21,13 +30,11 @@ const limitRecipeTitle = (title, limit = 17) => {
             }
             return acc + cur.length
         }, 0);
-
         //Return results with spaces between words
         return `${newTitle.join(' ') }...`;
     }
     return title
 };
-
 
 const renderRecipe = recipe => {
     const markup = `
@@ -55,8 +62,7 @@ const createButton = (page, type) => {
             <use href="img/icons.svg#icon-triangle-${type === 'prev' ? 'left' : 'right'}"></use>
         </svg>
     </button>`;
-}
-
+};
 
 const renderButtons = (page, numResults, resPerPage) =>{
     const pages = Math.ceil(numResults / resPerPage);
